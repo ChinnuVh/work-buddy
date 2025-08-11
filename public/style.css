@@ -1,0 +1,15 @@
+#todo-list {
+  list-style: none;
+  padding: 0;
+}
+
+#todo-list li {
+  padding: 8px;
+  border-bottom: 1px solid #ccc;
+  cursor: pointer;
+}
+
+#todo-list li.completed {
+  text-decoration: line-through;
+  color: gray;
+}
