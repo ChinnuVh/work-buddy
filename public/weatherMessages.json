@@ -1,0 +1,62 @@
+{
+  "rain": [
+    "☔ Don’t forget your umbrella today!",
+    "🌧️ Stay dry out there!",
+    "Rainy mood ahead!",
+    "A wet day—keep warm!",
+    "Watch your step, it’s slippery!",
+    "Rain means coffee tastes better!",
+    "Perfect day for soup and a book!",
+    "Grab your raincoat!",
+    "Pitter-patter outside!",
+    "Raindrops keep falling!"
+  ],
+  "clear": [
+    "☀️ It's a bright and sunny day!",
+    "Perfect day for a walk!",
+    "Enjoy the sunshine!",
+    "Blue skies ahead!",
+    "Sunny and smiling!",
+    "It’s a good day to be outside!",
+    "Let the sunshine lift your mood!",
+    "Golden rays everywhere!",
+    "Time for sunglasses!",
+    "A bright start to the day!"
+  ],
+  "clouds": [
+    "☁️ Cloudy skies, but keep shining!",
+    "A bit gloomy outside, but stay cheerful!",
+    "Cloud cover incoming!",
+    "Grey skies, warm heart!",
+    "No shadows today!",
+    "Soft skies above!",
+    "It’s a calm, overcast day!",
+    "Perfect day for quiet work!",
+    "Cloudy doesn’t mean boring!",
+    "Enjoy the coolness!"
+  ],
+  "thunderstorm": [
+    "⛈️ Storm alert! Stay indoors if possible!",
+    "Thunder and lightning outside!",
+    "Stormy vibes today!",
+    "Big rumbles outside!",
+    "Stay safe from the storm!",
+    "Nature’s light show!",
+    "Wind and rain—hold on tight!",
+    "Keep warm during the storm!",
+    "Lightning in the skies!",
+    "Storm is here—cozy up!"
+  ],
+  "default": [
+    "🌡️ Current temperature data",
+    "Weather info unavailable",
+    "Stay prepared for anything!",
+    "Be ready for the day ahead!",
+    "Weather may surprise you!",
+    "Keep an eye on the skies!",
+    "Don’t forget to check the weather!",
+    "Carry a light jacket—just in case!",
+    "Plan for any weather!",
+    "Stay adaptable!"
+  ]
+}

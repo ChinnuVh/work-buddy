@@ -1,5 +1,5 @@
-const API_KEY = "1606e3b595669aeb0cd09662a4c195d7"; // <-- Add your OpenWeatherMap API key here
-const CITY = "Kochi"; // Or any city you like
+const API_KEY = "f7abd39c0ccb170e0ac87d2236da4793";
+const CITY = "Kochi";
 
 function getClosestGreeting(hour, minute, greetingsData) {
   const currentMinutes = hour * 60 + minute;
@@ -9,7 +9,7 @@ function getClosestGreeting(hour, minute, greetingsData) {
       return { key, totalMinutes: h * 60 + m };
     })
     .filter((entry) => entry.totalMinutes <= currentMinutes)
-    .sort((a, b) => b.totalMinutes - a.totalMinutes); // sort descending
+    .sort((a, b) => b.totalMinutes - a.totalMinutes);
 
   if (availableTimes.length === 0) return null;
 
@@ -17,8 +17,7 @@ function getClosestGreeting(hour, minute, greetingsData) {
   const messages = greetingsData[closestKey] || [];
   if (messages.length === 0) return null;
 
-  const randomIndex = Math.floor(Math.random() * messages.length);
-  return messages[randomIndex];
+  return messages[Math.floor(Math.random() * messages.length)];
 }
 
 function showNotification(message) {
@@ -37,8 +36,8 @@ async function fetchWeatherCondition() {
       `https://api.openweathermap.org/data/2.5/weather?q=${CITY}&appid=${API_KEY}&units=metric`
     );
     const data = await res.json();
-    const condition = data.weather?.[0]?.main?.toLowerCase();
-    const temp = data.main?.temp;
+    const condition = data.weather?.[0]?.main?.toLowerCase() || "";
+    const temp = data.main?.temp ?? null;
     return { condition, temp };
   } catch (err) {
     console.error("Weather fetch error:", err);
@@ -46,7 +45,21 @@ async function fetchWeatherCondition() {
   }
 }
 
-// ⏰ Main function
+async function getRandomWeatherMessage(condition, temp) {
+  const resWeather = await fetch(chrome.runtime.getURL("weatherMessages.json"));
+  const weatherMessages = await resWeather.json();
+
+  let key = "default";
+  if (condition.includes("rain")) key = "rain";
+  else if (condition.includes("clear")) key = "clear";
+  else if (condition.includes("cloud")) key = "clouds";
+  else if (condition.includes("thunderstorm")) key = "thunderstorm";
+
+  const messages = weatherMessages[key] || weatherMessages.default;
+  const randomIndex = Math.floor(Math.random() * messages.length);
+  return messages[randomIndex].replace("{temp}", temp ?? "N/A");
+}
+
 async function checkAndNotifyGreeting(forceNotify = false) {
   const now = new Date();
   const hour = now.getHours();
@@ -61,12 +74,10 @@ async function checkAndNotifyGreeting(forceNotify = false) {
 
   if (greetingsData[key]) {
     const messages = greetingsData[key];
-    const randomIndex = Math.floor(Math.random() * messages.length);
-    greeting = messages[randomIndex];
+    greeting = messages[Math.floor(Math.random() * messages.length)];
     hasExactGreeting = true;
   }
 
-  // fallback
   if (!greeting) {
     greeting = getClosestGreeting(hour, minute, greetingsData);
   }
@@ -84,19 +95,12 @@ async function checkAndNotifyGreeting(forceNotify = false) {
         let weatherText = "";
 
         if (weather && weather.condition) {
-          if (weather.condition.includes("rain")) {
-            weatherText = "☔ Don’t forget your umbrella today!";
-          } else if (weather.condition.includes("clear")) {
-            weatherText = "☀️ It's a bright and sunny day!";
-          } else if (weather.condition.includes("cloud")) {
-            weatherText = "☁️ A bit cloudy, but you've got sunshine in you!";
-          } else if (weather.condition.includes("thunderstorm")) {
-            weatherText = "⛈️ Stormy out there! Stay safe and dry!";
-          } else {
-            weatherText = `🌡️ Current temp: ${weather.temp}°C`;
-          }
+          weatherText = await getRandomWeatherMessage(
+            weather.condition,
+            weather.temp
+          );
         } else {
-          weatherText = weather ? `🌡️ Current temp: ${weather.temp}°C` : "";
+          weatherText = `🌡️ Current temp: ${weather?.temp ?? "N/A"}°C`;
         }
 
         const finalMessage = `${greeting} ${weatherText}`;
@@ -136,25 +140,22 @@ async function checkWeatherUpdateHourly() {
   });
 }
 
-// 🛠️ Setup alarms
+// Setup alarms
 chrome.runtime.onStartup.addListener(() => {
-  chrome.alarms.create("minuteCheck", { periodInMinutes: 1 }); // greeting
-  chrome.alarms.create("hourlyWeather", { periodInMinutes: 60 }); // weather
-
-  checkAndNotifyGreeting(true); // ✅ Force greeting on startup
+  chrome.alarms.create("minuteCheck", { periodInMinutes: 1 });
+  chrome.alarms.create("hourlyWeather", { periodInMinutes: 60 });
+  checkAndNotifyGreeting(true);
 });
 
 chrome.runtime.onInstalled.addListener(() => {
   chrome.alarms.create("minuteCheck", { periodInMinutes: 1 });
   chrome.alarms.create("hourlyWeather", { periodInMinutes: 60 });
-
-  checkAndNotifyGreeting(true); // ✅ Force greeting on install
+  checkAndNotifyGreeting(true);
 });
 
-// ⏰ Alarm events
 chrome.alarms.onAlarm.addListener((alarm) => {
   if (alarm.name === "minuteCheck") {
-    checkAndNotifyGreeting(); // Only notify if exact match
+    checkAndNotifyGreeting();
   } else if (alarm.name === "hourlyWeather") {
     checkWeatherUpdateHourly();
   }
