@@ -100,7 +100,7 @@ async function checkAndNotifyGreeting(forceNotify = false) {
             weather.temp
           );
         } else {
-          weatherText = `🌡️ Current temp: ${weather?.temp ?? "N/A"}°C`;
+          weatherText = weather ? `🌡️ Current temp: ${weather.temp}°C` : "";
         }
 
         const finalMessage = `${greeting} ${weatherText}`;

@@ -7,8 +7,7 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        popup: resolve(__dirname, 'public/popup.html'),
-        todo: resolve(__dirname, 'public/todo.html'),
+        popup: resolve(__dirname, '/src/pages/popup.html'),
       },
     },
   },
