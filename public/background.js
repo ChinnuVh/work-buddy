@@ -160,3 +160,14 @@ chrome.alarms.onAlarm.addListener((alarm) => {
     checkWeatherUpdateHourly();
   }
 });
+
+chrome.runtime.onInstalled.addListener(() => {
+  chrome.sidePanel.setOptions({
+    path: "/src/pages/sidePanel.html",
+    enabled: true,
+  });
+});
+
+chrome.action.onClicked.addListener((tab) => {
+  chrome.sidePanel.open({ windowId: tab.windowId });
+});

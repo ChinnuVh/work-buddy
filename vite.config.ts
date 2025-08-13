@@ -8,6 +8,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         popup: resolve(__dirname, '/src/pages/popup.html'),
+        sidepanel: resolve(__dirname, "/src/pages/sidePanel.html")
       },
     },
   },

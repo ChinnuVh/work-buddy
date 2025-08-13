@@ -1,0 +1,197 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  height: 100%;
+}
+
+.container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f6d365, #fda085);
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+.section {
+  background: rgba(255, 255, 255, 0.65); /* Softer white */
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  backdrop-filter: blur(6px);
+}
+
+.section h2 {
+  margin-top: 0;
+  font-size: 18px;
+}
+
+.input-group {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.input-group input,
+.input-group textarea {
+  flex: 1;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+}
+
+.input-group button {
+  margin-left: 6px;
+  padding: 6px 12px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.input-group button:hover {
+  background-color: #45a049;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #eee;
+}
+
+li.completed span {
+  text-decoration: line-through;
+  color: gray;
+}
+
+.todo-text {
+  flex: 1;
+  margin-left: 8px;
+}
+
+.delete-btn {
+  background: transparent;
+  border: none;
+  color: red;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 2px 5px;
+}
+
+.delete-btn:hover {
+  color: darkred;
+}
+
+.notes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.note {
+  position: relative; /* so we can position the close button */
+  background: #fff9b0;
+  padding: 10px;
+  border-radius: 8px;
+  width: calc(50% - 10px);
+  box-sizing: border-box;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  min-height: 60px;
+}
+
+.note p {
+  margin: 0;
+  padding-right: 20px; /* space for the close button */
+}
+
+.note .delete-btn {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: transparent;
+  border: none;
+  color: red;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 0;
+}
+
+.note .delete-btn:hover {
+  color: darkred;
+}
+
+.toggle-completed {
+  margin-top: 8px;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.toggle-completed input {
+  margin-right: 6px;
+}
+
+.todo-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.todo-section li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px;
+  margin: 4px 0;
+  background: #f5f7fa;
+  border-radius: 6px;
+}
+
+.todo-section li.completed .todo-text {
+  text-decoration: line-through;
+  color: #999;
+}
+
+.todo-text {
+  flex-grow: 1;
+  margin-left: 8px;
+}
+
+.delete-btn {
+  background: transparent;
+  border: none;
+  color: red;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.input-group.compact {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.input-group.compact input {
+  flex: 1;
+}
+
+.input-group.compact select {
+  width: 40px;
+  padding: 0;
+  text-align: center;
+}
+
+.priority-dot {
+  transition: transform 0.15s ease;
+}
+.priority-dot:hover {
+  transform: scale(1.2);
+}
+
